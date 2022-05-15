@@ -6,9 +6,18 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
     props: {
-        index: Number,
-        col: Object as PropType<ColumnsTheadType>,
-        row: Object as any,
+        index: {
+            type: Number,
+            default: -1
+        },
+        col: {
+            type: Array as PropType<ColumnsTheadType[]>,
+            default: ()=> []
+        },
+        row: {
+            type: Array as any,
+            default: ()=> []
+        }
     },
     setup(props) {
         // 渲染单元格内容

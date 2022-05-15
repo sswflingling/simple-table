@@ -21,8 +21,14 @@ import TbodyTd from "./TbodyTd.vue"; //内容单元格组件
 import { TableSort } from "../hooks/useBasicTable";
 
 const props = defineProps({
-    columns: Array as PropType<ColumnsTheadType[]>,
-    data: Array as any,
+    columns: {
+        type: Array as PropType<ColumnsTheadType[]>,
+        default: ()=> []
+    },
+    data: {
+        type: Array as any,
+        default: ()=> []
+    }
 });
 
 const tableSort = inject(TableSort, ref());

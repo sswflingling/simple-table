@@ -31,8 +31,14 @@ provide(TableSort, ref());
 const uid = getCurrentInstance()?.uid || Math.floor(Math.random() * 1000000000);
 
 const props = defineProps({
-    columns: Array as PropType<ColumnsType[]>,
-    data: Array as PropType<unknown[]>,
+    columns: {
+        type: Array as PropType<ColumnsType[]>,
+        default: ()=> []
+    },
+    data: {
+        type: Array as PropType<unknown[]>,
+        default: ()=> []
+    },
 });
 
 // 处理表头数据为一维数组
