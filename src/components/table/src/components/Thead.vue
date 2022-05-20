@@ -1,102 +1,25 @@
 <script lang="tsx">
-import type { PropType } from "vue";
-import type { ColumnsTheadType, Directions } from "../types";
+import type { ColumnsTheadType } from "../types";
 
-import { defineComponent, computed, inject, ref } from "vue";
+import { defineComponent } from "vue";
 
 import CaretUpIcon from "../icon/CaretUpIcon.vue";
 import CaretDownIcon from "../icon/CaretDownIcon.vue";
 
-import { TableSort } from "../hooks/useBasicTable";
+import { useThead } from "../hooks/useThead";
 
-import { insertRule, updateRule } from "../utils";
+import { insertRule } from "../utils";
 
 export default defineComponent({
-    props: {
-        columns: {
-            type: Array as PropType<ColumnsTheadType[]>,
-            default: () => [],
-        },
-    },
     setup(props) {
-        const tableSort = inject(TableSort, ref());
-
-        // 找出多表头最大层级
-        const maxPowspan = computed<number>(() =>
-            Math.max(...props.columns.map((item) => item.level))
-        );
-
-        // 获取占的宽度
-        function getColspan(item: ColumnsTheadType) {
-            let len = 0;
-            item.children?.forEach((cItem) => {
-            if (cItem.children?.length) {
-                len += getColspan(cItem);
-            } else {
-                len += 1;
-            }
-            });
-            return len;
-        }
-
-        // 拖动单元格
-        function onMousedown(e: MouseEvent, item: ColumnsTheadType) {
-            e.preventDefault();
-            e.stopPropagation();
-            document.body.style.cursor = "col-resize !important";
-            const parent = (e.target as HTMLElement).parentElement as HTMLElement;
-            const offsetWidth = parent?.offsetWidth || 0;
-
-            const startMove = (el: MouseEvent) => {
-                el.preventDefault();
-                el.stopPropagation();
-                let w = offsetWidth + el.clientX - e.clientX;
-                w = w < 80 ? 80 : w;
-                updateRule(item.classResize, {
-                    width: w + "px",
-                });
-            };
-
-            const endMove = () => {
-                document.body.style.cursor = "";
-                document.removeEventListener("mousemove", startMove);
-                document.removeEventListener("mouseup", endMove);
-            };
-
-            document.addEventListener("mousemove", startMove);
-            document.addEventListener("mouseup", endMove);
-        }
-
-        // 排序
-        function onSort(item: ColumnsTheadType, directions?: Directions, e?: Event) {
-            e?.stopPropagation();
-            if (!item.key) return;
-
-            if (directions) {
-                return (tableSort.value = {
-                    field: item.key,
-                    order: directions,
-                });
-            }
-
-            if (tableSort.value?.field !== item.key || !tableSort.value?.order) {
-                return (tableSort.value = {
-                    field: item.key,
-                    order: "ascend",
-                });
-            }
-
-            if (tableSort.value?.order === "descend") {
-                return (tableSort.value = undefined);
-            }
-
-            if (tableSort.value?.order === "ascend") {
-                return (tableSort.value = {
-                    field: item.key,
-                    order: "descend",
-                });
-            }
-        }
+        const {
+            tableSort,
+            maxPowspan,
+            columnsThead,
+            getColspan,
+            onMousedown,
+            onSort,
+        } = useThead();
 
         // 排序图标
         function renderSortIcon(item: ColumnsTheadType) {
@@ -151,7 +74,7 @@ export default defineComponent({
         function renderTr(level: number) {
             return (
             <tr>
-                {props.columns
+                {columnsThead.value
                 .filter((item) => item.level == level)
                 .map((item) => renderTh(item, level))}
             </tr>

@@ -2,7 +2,7 @@
 import type { PropType } from "vue";
 import type { ColumnsTheadType } from "../types";
 
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
     props: {
@@ -11,12 +11,12 @@ export default defineComponent({
             default: -1
         },
         col: {
-            type: Array as PropType<ColumnsTheadType[]>,
-            default: ()=> []
+            type: Object as PropType<ColumnsTheadType>,
+            default: ()=> ({})
         },
         row: {
-            type: Array as any,
-            default: ()=> []
+            type: Object as any,
+            default: ()=> ({})
         }
     },
     setup(props) {

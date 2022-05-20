@@ -17,7 +17,7 @@ export function insertRule(className: string, style: string) {
     styleIndex += 1
     document.styleSheets[0].insertRule('.' + className + ' ' + style, styleIndex)
 }
-// 动态动态css样式
+// 动态更改css样式
 export function updateRule(className: string, obj: { [x: string]: string }) {
     const index = getCssRuleIndex(className)
     if (index === -1) return;

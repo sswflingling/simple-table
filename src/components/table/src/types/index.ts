@@ -21,3 +21,11 @@ export interface ColumnsTheadType extends ColumnsType {
     parent?: ColumnsTheadType;
     children?: ColumnsTheadType[];
 }
+
+// 分页器
+export namespace pagerType {
+    export type Size = 'medium' | 'small' | 'mini';
+    export type CurrentPage = number;
+    export type PageSize = number;
+    export type Total = number;
+}
