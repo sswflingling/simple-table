@@ -9,7 +9,7 @@ export const basicProps = {
     columns: {
         type: Array as PropType<ColumnsType[]>,
         default: ()=> [],
-        required: true
+        required: true 
     }
 };
 

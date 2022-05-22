@@ -4,6 +4,8 @@ import { computed } from "vue";
 import { updateRule } from "../utils";
 import { useBasicTableInner } from "./useBasicTable";
 
+import { log } from './../logger';
+
 export function useThead() {
     const { tableSort, columnsThead } = useBasicTableInner();
     // 找出多表头最大层级

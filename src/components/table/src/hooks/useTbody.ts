@@ -2,10 +2,13 @@ import { useBasicTableInner } from "./useBasicTable";
 
 import { computed } from "vue";
 
+import { log } from './../logger';
+
 export function useTbody() {
     const { data, ColumnsTbody, tableSort } = useBasicTableInner();
 
     const list = computed(() => {
+        log.log('排序前数据', data)
         // 排序
         if (tableSort.value) {
             const field = tableSort.value.field;
@@ -44,6 +47,7 @@ export function useTbody() {
                 return 0;
             });
         }
+        log.log('排序后数据', data)
 
         return data;
     });
