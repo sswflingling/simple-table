@@ -2,7 +2,7 @@
     <div class="basic-table">
         <div class="table">
             <table class="table-box table-border"
-                   ellspacing="0"
+                   cellspacing="0"
                    cellpadding="0"
                    border="0">
                 <Thead />
@@ -10,7 +10,9 @@
             </table>
         </div>
 
-    <div class="pagination">4555</div>
+    <div class="pagination">
+        <Pagination v-model:currentPage="currentPage" v-model:pageSize="pageSize" :total="data.length"></Pagination>
+    </div>
     </div>
 </template>
 
@@ -19,13 +21,14 @@
 
 import Thead from "./components/Thead.vue"; //表头组件
 import Tbody from "./components/Tbody.vue"; // 表格内容组件
+import Pagination from "./components/Pagination.vue"; // 表格分页器组件
 
 import { basicProps } from "./props";
 import { useBasicTable } from "./hooks/useBasicTable";
 
 const props = defineProps(basicProps);
 
-useBasicTable(props);
+const  { currentPage, pageSize } = useBasicTable(props);
 
 </script>
 <style lang="less" scoped>

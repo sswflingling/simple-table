@@ -2,7 +2,7 @@ import type { ColumnsTheadType, Directions } from "../types";
 
 import { computed } from "vue";
 import { updateRule } from "../utils";
-import { useBasicTableInner } from "./useBasicTable";
+import { useBasicTableInner } from "./useBasicTableInner";
 
 import { log } from './../logger';
 

@@ -1,21 +1,19 @@
 
-import type { Directions, ColumnsTheadType } from "../types/index";
-import type { InjectionKey, Ref, ComputedRef } from "vue";
+import type { ColumnsTheadType } from "../types/index";
 
 import { ref, computed, provide, inject, getCurrentInstance } from "vue";
-
+import { tableData, tableSort, tableColumnsThead, tableColumnsTbody } from "../types/TableInjectionKey";
 import { BasicProps } from "../props";
 
 import { log } from './../logger';
 
-export const tableSort: InjectionKey<Ref<{ field: string; order: Directions } | undefined>> = Symbol();
-export const tableData: InjectionKey<{[x:string]:any}[]> = Symbol();
-export const tableColumnsThead: InjectionKey<ComputedRef<ColumnsTheadType[]>> = Symbol();
-export const tableColumnsTbody: InjectionKey<ComputedRef<ColumnsTheadType[]>> = Symbol();
-
 export function useBasicTable(props: BasicProps) {
 	const uid = getCurrentInstance()?.uid || Math.floor(Math.random() * 1000000000);
-	
+	// 分页
+	const currentPage = ref(1);
+	const pageSize = ref(10);
+	const data = computed(() => 
+		props.data.slice(pageSize.value*(currentPage.value - 1), pageSize.value*currentPage.value))
 	// 处理表头数据为一维数组
 	const columnsThead = computed<ColumnsTheadType[]>(() => {
 	
@@ -53,18 +51,14 @@ export function useBasicTable(props: BasicProps) {
 		columnsThead.value.filter((item) => !item.children?.length)
 	);
 
-	provide(tableData, props.data);
+	provide(tableData, data);
 	provide(tableSort, ref());
 
 	provide(tableColumnsThead, columnsThead);
 	provide(tableColumnsTbody, ColumnsTbody);
-}
 
-export function useBasicTableInner() {
 	return {
-		data: inject(tableData, []),
-		tableSort: inject(tableSort, ref())  ,
-		columnsThead: inject(tableColumnsThead) as ComputedRef<ColumnsTheadType[]>,
-		ColumnsTbody: inject(tableColumnsTbody) as ComputedRef<ColumnsTheadType[]>,
-	};
+		currentPage,
+		pageSize
+	}
 }

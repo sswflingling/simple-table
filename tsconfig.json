@@ -17,13 +17,15 @@
       "@/*": ["src/*"]
     }
   },
-  "include": [
+  "include": [  
+    "types/**/*.d.ts",
+    "types/**/*.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "types/**/*.d.ts",
-    "types/**/*.ts",
+    "test/**/*.d.ts",
+    "test/**/*.ts",
     "vite.config.ts"
   ],
   "exclude": ["node_modules", "dist", "**/*.js"]

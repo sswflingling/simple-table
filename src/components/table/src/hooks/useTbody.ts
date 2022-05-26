@@ -1,6 +1,6 @@
-import { useBasicTableInner } from "./useBasicTable";
+import { useBasicTableInner } from "./useBasicTableInner";
 
-import { computed } from "vue";
+import { unref,computed } from "vue";
 
 import { log } from './../logger';
 
@@ -10,12 +10,14 @@ export function useTbody() {
     const list = computed(() => {
         log.log('排序前数据', data)
         // 排序
+        const tableData = unref(data)
+
         if (tableSort.value) {
             const field = tableSort.value.field;
             const order = tableSort.value.order;
             const column = ColumnsTbody.value?.find((item) => item.key === field);
             // 对数组的元素进行排序
-            data.sort((a: any, b: any) => {
+            tableSort.sort((a: any, b: any) => {
                 if (column && typeof column.sorter === "function") {
                     return column.sorter(order, a, b);
                 }
@@ -46,10 +48,12 @@ export function useTbody() {
 
                 return 0;
             });
+        }else{
+            tableData.sort((a, b) => a.key - b.key)
         }
         log.log('排序后数据', data)
 
-        return data;
+        return tableData;
     });
 
     return {

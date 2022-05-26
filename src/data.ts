@@ -4,6 +4,11 @@ import { h } from "vue"
 
 export const columns: ColumnsType[] = [
     {
+        title: "ID",
+        key: "key",
+        width: 100
+    },
+    {
         title: "用户名",
         key: "name",
         width: 100,
@@ -88,7 +93,7 @@ export const columns: ColumnsType[] = [
     },
 ];
 
-export const data = [...Array(20)].map((item, i) => ({
+export const data = [...Array(100)].map((item, i) => ({
     key: i,
     name: Math.random().toString(30),
     age: Math.floor(Math.random() * 100),
