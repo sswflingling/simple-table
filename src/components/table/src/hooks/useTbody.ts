@@ -17,7 +17,7 @@ export function useTbody() {
             const order = tableSort.value.order;
             const column = ColumnsTbody.value?.find((item) => item.key === field);
             // 对数组的元素进行排序
-            tableSort.sort((a: any, b: any) => {
+            tableData.sort((a: any, b: any) => {
                 if (column && typeof column.sorter === "function") {
                     return column.sorter(order, a, b);
                 }
