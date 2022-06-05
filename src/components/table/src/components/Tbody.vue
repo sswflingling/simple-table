@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 
-import TbodyTd from "./TbodyTd.vue"; //内容单元格组件
+import TbodyTd from "./tbodyTd.vue"; //内容单元格组件
 
 import { useTbody } from "../hooks/useTbody";
 

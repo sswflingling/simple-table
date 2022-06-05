@@ -7,18 +7,18 @@ import CaretUpIcon from "../icon/CaretUpIcon.vue";
 import CaretDownIcon from "../icon/CaretDownIcon.vue";
 
 import { useThead } from "../hooks/useThead";
+import { useSortInner } from "../hooks/useSort";
 
 import { insertRule } from "../utils";
 
 export default defineComponent({
     setup(props) {
-        const {
-            tableSort,
+        const { onSort , tableSort } = useSortInner()
+        const { 
             maxPowspan,
             columnsThead,
             getColspan,
-            onMousedown,
-            onSort,
+            onMousedown, 
         } = useThead();
 
         // 排序图标

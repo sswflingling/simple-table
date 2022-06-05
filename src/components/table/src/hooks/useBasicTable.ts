@@ -1,22 +1,17 @@
 
 import type { ColumnsTheadType } from "../types/index";
 
-import { ref, computed, provide, inject, getCurrentInstance } from "vue";
-import { tableData, tableSort, tableColumnsThead, tableColumnsTbody } from "../types/TableInjectionKey";
+import { computed, provide,  getCurrentInstance } from "vue";
+import { tableColumnsThead, tableColumnsTbody } from "../types/TableInjectionKey";
 import { BasicProps } from "../props";
 
 import { log } from './../logger';
 
 export function useBasicTable(props: BasicProps) {
 	const uid = getCurrentInstance()?.uid || Math.floor(Math.random() * 1000000000);
-	// 分页
-	const currentPage = ref(1);
-	const pageSize = ref(10);
-	const data = computed(() => 
-		props.data.slice(pageSize.value*(currentPage.value - 1), pageSize.value*currentPage.value))
+ 
 	// 处理表头数据为一维数组
 	const columnsThead = computed<ColumnsTheadType[]>(() => {
-	
 		try {
 			let i = 0;
 			const flatten = (
@@ -50,15 +45,8 @@ export function useBasicTable(props: BasicProps) {
 		// 筛选表头最后一级
 		columnsThead.value.filter((item) => !item.children?.length)
 	);
-
-	provide(tableData, data);
-	provide(tableSort, ref());
-
+	
+	// 源码中provide不支持对象传参
 	provide(tableColumnsThead, columnsThead);
 	provide(tableColumnsTbody, ColumnsTbody);
-
-	return {
-		currentPage,
-		pageSize
-	}
 }

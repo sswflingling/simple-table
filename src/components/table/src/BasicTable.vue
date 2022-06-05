@@ -19,17 +19,21 @@
 
 <script lang="ts" setup>
 
-import Thead from "./components/Thead.vue"; //表头组件
-import Tbody from "./components/Tbody.vue"; // 表格内容组件
-import Pagination from "./components/Pagination.vue"; // 表格分页器组件
+import Thead from "./components/thead.vue"; //表头组件
+import Tbody from "./components/tbody.vue"; // 表格内容组件
+import Pagination from "./components/pagination.vue"; // 表格分页器组件
 
 import { basicProps } from "./props";
 import { useBasicTable } from "./hooks/useBasicTable";
 
+import { useSort } from "./hooks/useSort"
+import { usePagination } from "./hooks/usePagination"
 const props = defineProps(basicProps);
 
-const  { currentPage, pageSize } = useBasicTable(props);
+useBasicTable(props);
+useSort()
 
+const { currentPage, pageSize } = usePagination(props.data)
 </script>
 <style lang="less" scoped>
 .basic-table {

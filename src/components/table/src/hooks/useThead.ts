@@ -7,7 +7,7 @@ import { useBasicTableInner } from "./useBasicTableInner";
 import { log } from './../logger';
 
 export function useThead() {
-    const { tableSort, columnsThead } = useBasicTableInner();
+    const {  columnsThead } = useBasicTableInner();
     // 找出多表头最大层级
     const maxPowspan = computed<number>(() =>
         Math.max(...columnsThead?.value.map((item) => item.level))
@@ -52,43 +52,10 @@ export function useThead() {
         document.addEventListener("mouseup", endMove);
   }
 
-    // 排序
-    function onSort(item: ColumnsTheadType, dire?: Directions, e?: Event) {
-        e?.stopPropagation();
-        if (!item.key) return;
-
-        if (dire) {
-            return (tableSort.value = {
-                field: item.key,
-                order: dire
-            });
-        }
-
-        if (tableSort.value?.field !== item.key || !tableSort.value?.order) {
-            return (tableSort.value = {
-                field: item.key,
-                order: "ascend"
-            });
-        }
-
-        if (tableSort.value?.order === "descend") {
-            return (tableSort.value = undefined);
-        }
-
-        if (tableSort.value?.order === "ascend") {
-            return (tableSort.value = {
-                field: item.key,
-                order: "descend"
-            });
-        }
-    }
-
-    return {
-        tableSort,
+    return { 
         maxPowspan,
         columnsThead,
         getColspan,
-        onMousedown,
-        onSort
+        onMousedown, 
     };
 }
