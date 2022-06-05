@@ -1,6 +1,6 @@
 <template>
     <tbody class="table-tbody">
-        <tr v-for="(row, rowIdx) in list" :key="row.id || rowIdx">
+        <tr v-for="(row, rowIdx) in list" :key="row.id || rowIdx" class="table-tbody-tr">
             <tbody-td v-for="(col, colIdx) in ColumnsTbody"
                       :index="rowIdx"
                       :row="row"

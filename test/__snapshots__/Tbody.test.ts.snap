@@ -1,0 +1,15 @@
+// Vitest Snapshot v1
+
+exports[`Table > basic work > pagination work 1`] = `
+"<div class=\\"basic-table\\" pagesize=\\"10\\" total=\\"50\\" data-v-170bffdc=\\"\\">
+  <div class=\\"table\\" data-v-170bffdc=\\"\\">
+    <table class=\\"table-box table-border\\" cellspacing=\\"0\\" cellpadding=\\"0\\" border=\\"0\\" data-v-170bffdc=\\"\\">
+      <thead-stub data-v-170bffdc=\\"\\"></thead-stub>
+      <tbody-stub data-v-170bffdc=\\"\\"></tbody-stub>
+    </table>
+  </div>
+  <div class=\\"pagination\\" data-v-170bffdc=\\"\\">
+    <pagination-stub currentpage=\\"1\\" pagesize=\\"10\\" pagesizes=\\"10,20,30,40\\" total=\\"0\\" data-v-170bffdc=\\"\\"></pagination-stub>
+  </div>
+</div>"
+`;
